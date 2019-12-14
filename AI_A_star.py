@@ -3,10 +3,11 @@ import numpy as np
 from copy import deepcopy
 sys.setrecursionlimit(2000000000)
 
-inital_state = [[1,2,3],[8,4,5],[0,7,6]]
+inital_state = [[2,3,0],[1,4,5],[8,7,6]]
 
 goal_state = [[1,2,3],[8,0,4],[7,6,5]]
 
+traceback_path = []
 pass_state = []
 score_board = []
 scoreNode = []
@@ -18,9 +19,12 @@ def A_star_init():
 def A_star(node):
     global score_board, scoreNode
     pass_state.append(node) #add node to pass state to avoid same state
-    print(node)
+    #for rows in node:
+     #print(rows)
+    #print()
     if node == goal_state:
-        return node
+        traceback(traceback_path, inital_state, goal_state)
+        #return node
     else:
         for i in range(0,3):
             for j in range(0,3):
@@ -33,6 +37,7 @@ def A_star(node):
                             tmpNode[i][j+1] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
                                 #compurt current node and the inital distance = g(n) value and current node and goal distance = h(n) value and add to socre board
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state)) 
                                 scoreNode.append(tmpNode) #add node to score node                               
                             
@@ -41,6 +46,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i+1][j]
                             tmpNode[i+1][j] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode) 
                             
@@ -55,6 +61,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i][j-1]
                             tmpNode[i][j-1] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)  
                             
@@ -62,6 +69,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i+1][j]
                             tmpNode[i+1][j] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)  
                             
@@ -75,6 +83,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i-1][j]
                             tmpNode[i-1][j] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)  
                             
@@ -83,6 +92,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i][j+1]
                             tmpNode[i][j+1] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode) 
                             
@@ -97,6 +107,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i-1][j]
                             tmpNode[i-1][j] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)                    
                             
@@ -104,6 +115,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i][j-1]
                             tmpNode[i][j-1] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode) 
                             
@@ -118,6 +130,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i-1][j]
                             tmpNode[i-1][j] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)                             
                                  
@@ -125,6 +138,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i+1][j]
                             tmpNode[i+1][j] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)                             
                             
@@ -132,6 +146,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i][j+1]
                             tmpNode[i][j+1] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode) 
                             
@@ -146,6 +161,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i+1][j]
                             tmpNode[i+1][j] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)                                                                                   
                             
@@ -153,13 +169,15 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i][j+1]
                             tmpNode[i][j+1] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
-                                scoreNode.append(tmpNode)                             
+                                scoreNode.append(tmpNode)                            
                             
                             tmpNode = deepcopy(node)
                             tmpNode[i][j] = tmpNode[i][j-1]
                             tmpNode[i][j-1] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode) 
                             
@@ -174,6 +192,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i+1][j]
                             tmpNode[i+1][j] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)                             
                             
@@ -182,6 +201,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i][j-1]
                             tmpNode[i][j-1] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)                             
                             
@@ -189,6 +209,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i-1][j]
                             tmpNode[i-1][j] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)                             
                             
@@ -202,7 +223,8 @@ def A_star(node):
                             tmpNode = deepcopy(node)
                             tmpNode[i][j] = tmpNode[i-1][j]
                             tmpNode[i-1][j] = 0
-                            if( tmpNode not in pass_state): #this node is not is the previous pass state
+                            if( tmpNode not in pass_state): #this node is not is the previous pass statey
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)                           
                             
@@ -210,6 +232,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i][j+1]
                             tmpNode[i][j+1] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)                             
                             
@@ -217,6 +240,7 @@ def A_star(node):
                             tmpNode[i][j] = tmpNode[i][j-1]
                             tmpNode[i][j-1] = 0
                             if( tmpNode not in pass_state): #this node is not is the previous pass state
+                                traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                                 score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                                 scoreNode.append(tmpNode)                             
                             
@@ -231,6 +255,7 @@ def A_star(node):
                         tmpNode[i][j] = tmpNode[i-1][j]
                         tmpNode[i-1][j] = 0
                         if( tmpNode not in pass_state): #this node is not is the previous pass state
+                            traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                             score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                             scoreNode.append(tmpNode)   
                         
@@ -238,6 +263,7 @@ def A_star(node):
                         tmpNode[i][j] = tmpNode[i][j-1]
                         tmpNode[i][j-1] = 0
                         if( tmpNode not in pass_state): #this node is not is the previous pass state
+                            traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                             score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                             scoreNode.append(tmpNode)
                         
@@ -246,6 +272,7 @@ def A_star(node):
                         tmpNode[i][j] = tmpNode[i+1][j]
                         tmpNode[i+1][j] = 0
                         if( tmpNode not in pass_state): #this node is not is the previous pass state
+                            traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                             score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                             scoreNode.append(tmpNode) 
                         
@@ -253,6 +280,7 @@ def A_star(node):
                         tmpNode[i][j] = tmpNode[i][j+1]
                         tmpNode[i][j+1] = 0
                         if( tmpNode not in pass_state): #this node is not is the previous pass state
+                            traceback_path.append([node, tmpNode]) #add current node and next node to trace array
                             score_board.append(huristic(inital_state, tmpNode)+huristic(tmpNode, goal_state))
                             scoreNode.append(tmpNode)    
                         
@@ -271,6 +299,24 @@ def huristic(node, goal): #manhatom algorithm
                         score += abs(i-i_goal)+abs(j-j_goal) #x position cut each and y position cut each other
     #print(score)
     return score
+
+def traceback(traceback_path, init, goal):
+    printinit = deepcopy(goal) #first trace target is your final goal
+    printall = [] # a array to record all path
+    printall.append(goal) # record goal first
+    while printinit != init: #loop until find the init node
+        for item in traceback_path: #loop path array
+            if(item[1] == printinit): #if the last is found
+                printinit = item[0] #target to the previous node
+                printall.append(item[0]) #input previous node to all path
+                break
+    printall.reverse() #oppsidedown all path
+    count_step = len(printall)
+    for item in printall: #print all path
+        print(item)
+    print("total steps are: "+str(count_step))
+        
+
 def goal_check(node):
     return node == goal_state
 
